@@ -1,0 +1,9 @@
+<h2>Your Deliveries</h2>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+<ul *ngIf="deliveries.length > 0">
+    <li *ngFor="let delivery of deliveries">
+        Delivery ID: {{ delivery.trackingNumber }}, State: {{ delivery.deliveryState }}
+        <button (click)="viewDetails(delivery.id)">View Details</button>
+    </li>
+</ul>
+<p *ngIf="deliveries.length === 0 && !errorMessage">No deliveries found.</p>
