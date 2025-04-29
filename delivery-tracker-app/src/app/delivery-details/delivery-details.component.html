@@ -1,0 +1,25 @@
+<h2>Delivery Details</h2>
+<div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+<div *ngIf="delivery">
+    <p>Delivery ID: {{ delivery.id }}</p>
+    <p>Customer ID: {{ delivery.customerId }}</p>
+    <p>Current State: {{ delivery.deliveryState }}</p>
+    <p>Delivery Address: {{ delivery.deliveryAddress }}</p>
+
+    <h3>Modify Delivery Details</h3>
+    <form [formGroup]="updateForm" (ngSubmit)="onSubmit()">
+        <div>
+            <label for="deliveryAddress">Delivery Address:</label>
+            <input type="text" id="deliveryAddress" formControlName="deliveryAddress">
+        </div>
+        <div>
+            <label for="deliverySlot">Delivery Slot:</label>
+            <input type="text" id="deliverySlot" formControlName="deliverySlot">
+        </div>
+        <button type="submit"
+            [disabled]="updateForm.invalid || delivery.deliveryState === deliveryStates.READY">Update</button>
+        <div *ngIf="updateSuccessMessage" class="success">{{ updateSuccessMessage }}</div>
+    </form>
+    <button (click)="goBack()">Back to Deliveries</button>
+</div>
+<p *ngIf="!delivery && !errorMessage">Loading delivery details...</p>
